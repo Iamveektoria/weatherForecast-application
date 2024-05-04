@@ -38,13 +38,18 @@ async function main() {
 
     // Runs and ends code if a location outside the Database is selected
     if (!(location in locations)) {
-      console.log(`This weather app does not cover "${location}"`);
+      console.log(
+        "\x1b[31m%s\x1b[0m",
+        `This weather app does not cover "${location}"`
+      );
       continue;
     }
 
     const { latitude, longitude } = locations[location];
 
-    console.log("Fetching Data...");
+    console.log("\x1b[32m%s\x1b[0m", "\nFetching Data...");
+    console.log("\x1b[33m%s\x1b[0m", "\n-------------------------------------");
+
     const response = await getWeatherForecast(latitude, longitude);
     if (response) {
       // Display location information
@@ -78,6 +83,7 @@ async function main() {
         `Surface Pressure: ${response.current.surface_pressure} ${response.current_units.surface_pressure}`
       );
     }
+    console.log("\x1b[33m%s\x1b[0m", "-------------------------------------\n");
   }
   rl.close();
 }
